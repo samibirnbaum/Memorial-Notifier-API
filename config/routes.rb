@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   scope :api, defaults: { format: :json } do
-    devise_for :users, :controllers => {sessions: 'sessions', registrations: 'api/registrations'} 
+    devise_for :users, :controllers => {sessions: 'api/sessions', registrations: 'api/registrations'} 
   end
 end
 
 
 #     Prefix                Verb      URI Pattern                                 Controller#Action
-# new_user_session          GET       /api/users/sign_in(.:format)                sessions#new {:format=>:json}            
-# user_session              POST      /api/users/sign_in(.:format)                sessions#create {:format=>:json}
-# destroy_user_session      DELETE    /api/users/sign_out(.:format)               sessions#destroy {:format=>:json}
+# new_user_session          GET       /api/users/sign_in(.:format)                api/sessions#new {:format=>:json}            
+# user_session              POST      /api/users/sign_in(.:format)                api/sessions#create {:format=>:json}
+# destroy_user_session      DELETE    /api/users/sign_out(.:format)               api/sessions#destroy {:format=>:json}
 
 # new_user_password         GET       /api/users/password/new(.:format)           devise/passwords#new {:format=>:json}
 # edit_user_password        GET       /api/users/password/edit(.:format)          devise/passwords#edit {:format=>:json}            
