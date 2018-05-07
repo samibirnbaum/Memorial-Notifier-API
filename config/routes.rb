@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   scope :api, defaults: { format: :json } do
-    devise_for :users, :controllers => {sessions: 'api/sessions', registrations: 'api/registrations'} 
+    devise_for :users, :controllers => {sessions: 'api/sessions', registrations: 'api/registrations'}
   end
 end
 

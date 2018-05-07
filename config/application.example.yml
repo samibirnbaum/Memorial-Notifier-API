@@ -1,0 +1,6 @@
+#This file containes environment variables that need to be set for the app to work
+
+
+
+development:
+    DEVISE_JWT_SECRET_KEY: 
