@@ -21,7 +21,7 @@ This API uses [JWT's](https://jwt.io/) for authentication.
 
 Every request made to the API will require a valid [JWT](https://jwt.io/).
 
-This is expected to be in the Request header in a `key/value` format:
+This is expected to be in the request `header` in a `key/value` format:
 
 `Authorization: Bearer <JWT>`
 
