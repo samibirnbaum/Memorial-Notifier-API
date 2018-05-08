@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   scope :api, defaults: { format: :json } do
     devise_for :users, :controllers => {sessions: 'api/sessions', registrations: 'api/registrations'}
+    post 'reset_password', to: 'api/resets_passwords#reset'
   end
 end
 
@@ -15,6 +16,7 @@ end
 # user_password             PATCH     /api/users/password(.:format)               devise/passwords#update {:format=>:json}    
 #                           PUT       /api/users/password(.:format)               devise/passwords#update {:format=>:json}
 #                           POST      /api/users/password(.:format)               devise/passwords#create {:format=>:json}
+# reset_password            POST      /api/reset_password(.:format)               api/resets_passwords#reset {:format=>:json}
 
 # cancel_user_registration  GET       /api/users/cancel(.:format)                 api/registrations#cancel {:format=>:json}
 #     new_user_registration GET       /api/users/sign_up(.:format)                api/registrations#new {:format=>:json}

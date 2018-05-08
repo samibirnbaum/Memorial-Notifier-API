@@ -1,6 +1,13 @@
 #This file containes environment variables that need to be set for the app to work
 
-
-
 development:
     DEVISE_JWT_SECRET_KEY: 
+    GMAIL_DOMAIN: 
+    GMAIL_USERNAME: 
+    GMAIL_PASSWORD: 
+
+production:
+    DEVISE_JWT_SECRET_KEY: 
+    GMAIL_DOMAIN: 
+    GMAIL_USERNAME: 
+    GMAIL_PASSWORD: 
