@@ -7,7 +7,7 @@ class Api::ResetsPasswordsController < ApplicationController
             UserNotifierMailer.send_password_reset_email(@user, @temp_password).deliver
             render json: {message: "email instructions have been sent to #{params["user"]["email"]} to reset password"}
         else
-            render json: {message: "email '#{params["user"]["email"]}' is invalid"}
+            render json: {message: "email '#{params["user"]["email"]}' is invalid"}, status: :unprocessable_entity
         end
     end
 end
