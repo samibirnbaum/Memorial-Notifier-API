@@ -8,4 +8,8 @@ RSpec.describe User, type: :model do
       expect(user).to have_attributes(email: "sami@sami.com")
     end
   end
+
+  describe 'associations' do
+    it { should have_many(:memorial_notices) }
+  end
 end
