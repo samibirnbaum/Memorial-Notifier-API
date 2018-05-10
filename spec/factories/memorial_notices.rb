@@ -25,6 +25,6 @@ FactoryBot.define do
     grandchild8 nil
     grandchild9 nil
     grandchild10 nil
-    user #this will be the user from the user factory - sami@sami.com password
+    user #this will be the user from the user factory - sami@sami.com - password
   end
 end

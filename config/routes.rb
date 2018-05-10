@@ -3,6 +3,10 @@ Rails.application.routes.draw do
     devise_for :users, :controllers => {sessions: 'api/sessions', registrations: 'api/registrations'}
     post 'reset_password', to: 'api/resets_passwords#reset'
   end
+
+  namespace :api, defaults: { format: :json } do
+    resources :memorial_notices
+  end
 end
 
 
@@ -25,3 +29,10 @@ end
 #                           PUT       /api/users(.:format)                        api/registrations#update {:format=>:json}                          
 #                           DELETE    /api/users(.:format)                        api/registrations#destroy {:format=>:json}
 #                           POST      /api/users(.:format)                        api/registrations#create {:format=>:json}
+
+# memorial_notices          GET       /api/memorial_notices(.:format)             api/memorial_notices#index {:format=>:json}
+#                           POST      /api/memorial_notices(.:format)             api/memorial_notices#create {:format=>:json}          
+# memorial_notice           GET       /api/memorial_notices/:id(.:format)         api/memorial_notices#show {:format=>:json}
+#                           PATCH     /api/memorial_notices/:id(.:format)         api/memorial_notices#update {:format=>:json}                          
+#                           PUT       /api/memorial_notices/:id(.:format)         api/memorial_notices#update {:format=>:json}
+#                           DELETE    /api/memorial_notices/:id(.:format)         api/memorial_notices#destroy {:format=>:json}
