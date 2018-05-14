@@ -17,6 +17,11 @@ class Api::MemorialNoticesController < ApplicationController
         render json: @memorial_notices, each_serializer: MemorialNoticeSerializer
     end
 
+    def show
+        @memorial_notice = MemorialNotice.find(params["id"])
+        render json: @memorial_notice, root: "memorial_notice"
+    end
+
     private
     def allowed_params
         params.require(:memorial_notice).permit!

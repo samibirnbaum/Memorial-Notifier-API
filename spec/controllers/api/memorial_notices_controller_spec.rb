@@ -83,4 +83,35 @@ RSpec.describe Api::MemorialNoticesController, type: :controller do
         end
     end
 
+    describe 'GET #show' do
+        context 'user not logged in or invalid JWT' do
+            it 'should respond with 401 unauthorized' do
+                request.headers["ACCEPT"] = "application/json"
+                get :show, params: {id: 1}
+                expect(response).to have_http_status(401)
+            end
+        end
+        context 'user is logged in' do
+            before do
+                create(:memorial_notice)
+                sign_in User.first
+            end
+            it 'returns the correct notice from the database, based on params id' do
+                get :show, params: {id: 1}
+                json = JSON.parse(response.body)
+                expect(json["memorial_notice"]["first_name"]).to eq("Joe")
+                expect(json["memorial_notice"]["id"]).to eq(1)
+                expect(json["memorial_notice"]["user"]["email"]).to eq("sami@sami.com")
+
+            end
+            it 'has an http status of 200' do
+                get :show, params: {id: 1}
+                expect(response).to have_http_status(200)
+            end
+        end
+
+        
+    end
+
 end
+# params["id"]
