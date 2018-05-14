@@ -12,7 +12,10 @@ class Api::MemorialNoticesController < ApplicationController
         end
     end
 
-
+    def index
+        @memorial_notices = MemorialNotice.order(:last_name, :first_name)
+        render json: @memorial_notices, each_serializer: MemorialNoticeSerializer
+    end
 
     private
     def allowed_params

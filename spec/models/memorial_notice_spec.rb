@@ -32,4 +32,15 @@ RSpec.describe MemorialNotice, type: :model do
     
     it { should validate_inclusion_of(:after_nightfall).in_array([true, false]) }
   end
+
+  describe 'before_create action' do
+    it 'capitalizes the first name before database create' do
+      create(:memorial_notice, first_name: "jenny")
+      expect(MemorialNotice.first.first_name).to eq("Jenny")
+    end
+    it 'capitalizes the last name before database create' do
+      create(:memorial_notice, last_name: "blogg")
+      expect(MemorialNotice.first.last_name).to eq("Blogg")
+    end
+  end
 end

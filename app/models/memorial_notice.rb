@@ -26,9 +26,18 @@ class MemorialNotice < ApplicationRecord
     #@grandchild10
     #@user_id
 
+    before_create :capitalize_first_and_last_name
+
     belongs_to :user
 
     validates :first_name, :last_name, :date_of_death, :user_id, presence: true
     validates_inclusion_of :after_nightfall,:in => [true, false]
     #attributes not assigned automatically default to nil
+
+
+    private
+    def capitalize_first_and_last_name
+        self.first_name.capitalize!
+        self.last_name.capitalize!
+    end
 end
