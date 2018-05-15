@@ -109,9 +109,39 @@ RSpec.describe Api::MemorialNoticesController, type: :controller do
                 expect(response).to have_http_status(200)
             end
         end
+    end
 
-        
+    describe 'PUT #update' do
+        context 'user not logged in or invalid JWT' do
+            it 'should respond with 401 unauthorized' do
+                request.headers["ACCEPT"] = "application/json"
+                create(:memorial_notice)
+                put :update, params:{id: 1, memorial_notice:{first_name: "Jenny", last_name: "Miles", date_of_death: "24/08/1987", after_nightfall: true}}
+                expect(response).to have_http_status(401)
+            end
+        end
+        context 'user logged in' do
+            before do
+                create(:memorial_notice)
+                sign_in User.first
+            end
+            it 'updates the memorial notice with params data' do
+                put :update, params:{id: 1, memorial_notice:{first_name: "Jenny", last_name: "Miles", date_of_death: "24/08/1987", after_nightfall: true}}
+                expect(MemorialNotice.first.first_name).to eq("Jenny")
+                expect(MemorialNotice.first.date_of_death).to eq("24/08/1987")
+            end
+            it 'renders updated memorial notice as JSON' do
+                put :update, params:{id: 1, memorial_notice:{first_name: "Jenny", last_name: "Miles", date_of_death: "24/08/1987", after_nightfall: true}}
+                json = JSON.parse(response.body)
+                expect(json["memorial_notice"]["first_name"]).to eq("Jenny")
+                expect(json["memorial_notice"]["id"]).to eq(1)
+                expect(json["memorial_notice"]["user"]["email"]).to eq("sami@sami.com")
+            end
+            it 'returns http status success' do
+                put :update, params:{id: 1, memorial_notice:{first_name: "Jenny", last_name: "Miles", date_of_death: "24/08/1987", after_nightfall: true}}
+                expect(response).to have_http_status(200)
+            end
+        end
     end
 
 end
-# params["id"]

@@ -26,7 +26,7 @@ class MemorialNotice < ApplicationRecord
     #@grandchild10
     #@user_id
 
-    before_create :capitalize_first_and_last_name
+    before_save :capitalize_first_and_last_name
 
     belongs_to :user
 

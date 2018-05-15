@@ -22,6 +22,21 @@ class Api::MemorialNoticesController < ApplicationController
         render json: @memorial_notice, root: "memorial_notice"
     end
 
+    def update
+        @memorial_notice = MemorialNotice.find(params["id"])
+        @memorial_notice.assign_attributes(allowed_params)
+        if @memorial_notice.save
+            render json: @memorial_notice, root: "memorial_notice", status: 200
+        else
+            render json: { errors: @memorial_notice.errors.full_messages }, status: :unprocessable_entity
+        end
+    end
+
+    
+    
+    
+    
+    
     private
     def allowed_params
         params.require(:memorial_notice).permit!
