@@ -32,6 +32,15 @@ class Api::MemorialNoticesController < ApplicationController
         end
     end
 
+    def destroy
+        @memorial_notice = MemorialNotice.find(params["id"])
+        if @memorial_notice.destroy
+            render json: @memorial_notice, root: "memorial_notice", status: 200
+        else
+            render json: { message: "deletion unsuccessful" }, status: :unprocessable_entity
+        end
+    end
+
     
     
     

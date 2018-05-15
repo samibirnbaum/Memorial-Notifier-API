@@ -144,4 +144,36 @@ RSpec.describe Api::MemorialNoticesController, type: :controller do
         end
     end
 
+    describe 'DELETE #destroy' do
+        context 'user not logged in or invalid JWT' do
+            it 'should respond with 401 unauthorized' do
+                request.headers["ACCEPT"] = "application/json"
+                create(:memorial_notice)
+                delete :destroy, params:{id: 1}
+                expect(response).to have_http_status(401)
+            end
+        end
+        context 'user logged in' do
+            before do
+                create(:memorial_notice)
+                sign_in User.first
+            end
+            it 'should delete the user from the database' do
+                delete :destroy, params:{id: 1}
+                expect(MemorialNotice.all.empty?).to eq(true)
+            end
+            it 'should return JSON of deleted user' do
+                delete :destroy, params:{id: 1}
+                json = JSON.parse(response.body)
+                expect(json["memorial_notice"]["first_name"]).to eq("Joe")
+                expect(json["memorial_notice"]["id"]).to eq(1)
+                expect(json["memorial_notice"]["user"]["email"]).to eq("sami@sami.com")
+            end
+            it 'should have http status of 200' do
+                delete :destroy, params:{id: 1}
+                expect(response).to have_http_status(200)
+            end
+        end
+    end
+
 end
