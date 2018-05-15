@@ -5,8 +5,6 @@ ruby '2.4.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -37,6 +35,7 @@ group :development, :test do
   gem 'faker', '~> 1.8', '>= 1.8.7'
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.2'
   gem 'rails-controller-testing'
+  gem 'sqlite3'
 end
 
 group :development do
@@ -55,3 +54,4 @@ gem 'devise', '~> 4.4', '>= 4.4.3'
 gem 'jwt', '~> 2.1'
 gem 'devise-jwt', '~> 0.5.6'
 gem "figaro"
+gem 'pg'
