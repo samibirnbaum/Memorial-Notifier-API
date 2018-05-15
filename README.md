@@ -2,9 +2,10 @@
 
 An externally usable API for total management of memorials. Application built using Rails 5.0 API Mode
 
-![Snapshot](app/assets/images/snapshot.png)
+![Snapshot](app/assets/images/rsz_railsapi-1.jpg)
+![Snapshot](app/assets/images/jwt.png)
 
-[Case Study](https://samibirnbaum.com/portfolio/to-do-list-api.html)
+[Case Study](https://samibirnbaum.com/portfolio/memorial-notices-api.html)
 
 ## Usage
 
@@ -118,88 +119,113 @@ Expectations: If successful response status will be `200`. The response body wil
 
 <hr>
 
-<!-- ## Lists
-- ### Create a list
-Method: `POST`
-
-Path: http://localhost:3000/api/users/:user_id/lists
-
-`:user_id` must be replaced with an integer of your own user id. This can be found from the create user response or by calling get all users.
-
-Body:
-```json
-{"list":
-	{
-	"name":"TO DO",
-	"private":false
-	}
-}
-```
-
-- ### Update a list
-Method: `PUT`
-
-Path: http://localhost:3000/api/users/:user_id/lists/:list_id
-
-`:user_id` must be replaced with an integer of your own user id. This can be found from the create user response or by calling get all users.
-
-`:list_id` must be replaced with an integer of your own list id. This can be found from the create list response.
-
-Body:
-```json
-{"list":
-	{
-	"name":"update name of list",
-	"private":true
-	}
-}
-```
-
-- ### Delete a list
-Method: `DELETE`
-
-Path: http://localhost:3000/api/users/:user_id/lists/:list_id
-
-`:user_id` must be replaced with an integer of your own user id. This can be found from the create user response or by calling get all users.
-
-`:list_id` must be replaced with an integer of your own list id. This can be found from the create list response.
-
-Body: N/A
 <hr>
 
-## Items
-- ### Create an item
+## Memorial Notices
+
+- ### Create a Memorial Notice
+
 Method: `POST`
 
-Path: http://localhost:3000/api/lists/:list_id/items
+Path: http://localhost:3000/api/memorial_notices
 
-`:list_id` must be replaced with an integer of your own list id. This was returned to you when you created your list.
+Headers: 
+
+`Content-Type: application/json`
+
+`Authorization: Bearer <JWT>`
 
 Body:
 ```json
-{"item":
+{"memorial_notice":
 	{
-	"name":"Take the bins out",
-	"private":false
+	"first_name":"danny",
+	"last_name":"aaa",
+	"date_of_death": "01/01/2015",
+	"after_nightfall": true,
+	"spouse": "Manny Smith",
+	"child1": "jermain",
+	"child2": "mickey",
+	"grandchild1": "max"
 	}
 }
 ```
 
-- ### Update an item
+Note: You can add up to 10 children and grandchildren. Those not added, their value will automatically default to `null`
+
+Expectations: Requires JWT for authentication, received in response header after log-in. If creation is successful the response status will be `201`. If unsuccessful the response status will be `422`. Newly created data returned as JSON.
+
+- ### Get all Memorial Notices
+
+Method: `GET`
+
+Path: http://localhost:3000/api/memorial_notices
+
+Headers: 
+
+`Content-Type: application/json`
+
+`Authorization: Bearer <JWT>`
+
+Expectations: All the memorial notices will be returned in alphabetical order. If request is successful the response status will be `200`.
+
+- ### Show an individual memorial notice
+
+Method: `GET`
+
+Path: http://localhost:3000/api/memorial_notices/:id
+
+Headers: 
+
+`Content-Type: application/json`
+
+`Authorization: Bearer <JWT>`
+
+Expectations: `:id` in the URL should be the id of a Memorial Notice. This can be viewed in creation response or get all response. If request is successful the response status will be `200`. Data returned as JSON.
+
+- ### Update a Memorial Notice
+
 Method: `PUT`
 
-Path: http://localhost:3000/api/lists/:list_id/items/:item_id
+Path: http://localhost:3000/api/memorial_notices/:id
 
-`:list_id` must be replaced with an integer of your own list id. This can be found from the create list response.
+Headers: 
 
-`:item_id` must be replaced with an integer of your own item id. This can be found from the create item response.
+`Content-Type: application/json`
+
+`Authorization: Bearer <JWT>`
 
 Body:
 ```json
-{"item":
+{"memorial_notice":
 	{
-	"name":"item name updated",
-	"complete":true
+	"first_name":"danny",
+	"last_name":"aaa",
+	"date_of_death": "21/01/2015",
+	"after_nightfall": false,
+	"spouse": "Jesse Smith",
+	"child1": "jermain",
+	"child2": "mickey",
+	"grandchild1": "max"
 	}
 }
-``` -->
+```
+
+Note: When you create a Memorial Notice, if you dont add a child or grandchild attribute it will automatically default to `null` However, when updating the model, anything you leave out will just remain the way it is, so to make a child into `null` that attribute has to be actively updated to make that change.
+
+Expectations: Requires JWT for authentication, received in response header after log-in. `:id` in the URL should be the id of a Memorial Notice. This can be viewed in creation response or get all response. If creation is successful the response status will be `201`. If unsuccessful the response status will be `422`. The new updated data will be returned as JSON.
+
+- ### Delete a Memorial Notice
+
+Method: `DELETE`
+
+Path: http://localhost:3000/api/memorial_notices/:id
+
+Headers: 
+
+`Content-Type: application/json`
+
+`Authorization: Bearer <JWT>`
+
+
+Expectations: `:id` in the URL should be the id of a Memorial Notice. This can be viewed in creation response or get all response. If request is successful the response status will be `200`. The deleted data will be returned as JSON.
