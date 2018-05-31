@@ -5,7 +5,7 @@ An externally usable API for total management of memorials. Application built us
 ![Snapshot](app/assets/images/rsz_railsapi-1.jpg)
 ![Snapshot](app/assets/images/jwt.png)
 
-[Case Study](https://samibirnbaum.com/portfolio/memorial-notices-api.html)
+[Case Study](https://samibirnbaum.com/portfolio/memorial-notifier-api.html)
 
 ## Usage
 
